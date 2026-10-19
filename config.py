@@ -24,8 +24,8 @@ ENCODINGS = ["utf-8", "utf-8-sig", "latin-1"]
 # Kandidat pemisah (delimiter) CSV saat deteksi otomatis
 DELIMITERS = [",", ";", "\t", "|"]
 
-# Lokasi file kunci service account Google (JSON)
-CREDENTIALS_PATH = CREDENTIALS_DIR / "service_account.json"
+# Lokasi file OAuth credentials Google (JSON)
+CREDENTIALS_PATH = CREDENTIALS_DIR / "credentials.json"
 
 # Batas jumlah baris yang ditampilkan sekaligus di terminal.
 # Baris lebih dari ini akan dipotong (agar tabel tidak terpotong).

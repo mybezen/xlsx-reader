@@ -1,29 +1,34 @@
-# Integrasi Google Sheets menggunakan gspread dan service account.
-
+# Integrasi Google Sheets menggunakan gspread OAuth (user credentials).
+#
 # Cara pakai:
-# 1. Buat proyek Google Cloud Console → aktifkan Google Sheets API
-# 2. Buat service account → unduh file JSON kunci → simpan di credentials/service_account.json
-# 3. Bagikan spreadsheet ke email service account (agar bisa diakses)
-
-# File kunci JSON harus disimpan di credentials/ dan masuk .gitignore
-# sehingga tidak ter-commit ke repository.
-
+# 1. Buat proyek Google Cloud Console → aktifkan Google Sheets API & Drive API
+# 2. Buat OAuth 2.0 Client ID (Desktop app) → unduh file JSON → simpan di credentials/credentials.json
+# 3. Jalankan program, browser akan buka untuk autentikasi pertama kali
+# 4. Token disimpan otomatis di credentials/authorized_user.json (sudah di .gitignore)
 
 from __future__ import annotations
 
-from config import CREDENTIALS_PATH
+from config import CREDENTIALS_DIR
 from models import SheetData
 
 
 def _get_client():
     import gspread
 
-    if not CREDENTIALS_PATH.exists():
+    creds_file = CREDENTIALS_DIR / "credentials.json"
+    token_file = CREDENTIALS_DIR / "authorized_user.json"
+
+    if not creds_file.exists():
         raise FileNotFoundError(
-            f"File kunci service account tidak ditemukan: {CREDENTIALS_PATH}\n"
-            "Pastikan file JSON sudah disalin ke folder credentials/"
+            f"File OAuth credentials tidak ditemukan: {creds_file}\n"
+            "Pastikan file JSON dari Google Cloud Console (OAuth Client ID) "
+            "sudah disalin ke folder credentials/ dengan nama credentials.json"
         )
-    return gspread.service_account(filename=str(CREDENTIALS_PATH))
+
+    return gspread.oauth(
+        credentials_filename=str(creds_file),
+        authorized_user_filename=str(token_file),
+    )
 
 
 def list_worksheets(spreadsheet_key: str) -> list[str]:

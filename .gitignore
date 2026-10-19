@@ -1,7 +1,12 @@
-credentials/
+# Python
 __pycache__/
-*.pyc
-*.xlsx
-*.csv
-!data/*.xlsx
-!data/*.csv
+*.py[cod]
+*$py.class
+
+# Credentials (Google OAuth)
+credentials/credentials.json
+credentials/authorized_user.json
+
+# Data files (optional - uncomment if you want to ignore local data)
+# data/*.xlsx
+# data/*.csv
