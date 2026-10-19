@@ -1,0 +1,7 @@
+credentials/
+__pycache__/
+*.pyc
+*.xlsx
+*.csv
+!data/*.xlsx
+!data/*.csv
