@@ -12,7 +12,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from openpyxl import load_workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 
 from config import BASE_DIR
@@ -79,11 +79,15 @@ def write_xlsx(data: SheetData, file_path: str) -> None:
     """
     data.ensure_width()
 
-    wb = load_workbook()
-    if os.path.exists(file_path):
+    exists = os.path.exists(file_path)
+    if exists:
         wb = load_workbook(file_path, read_only=False)
+    else:
+        wb = Workbook()
 
     sheet_name = data.sheet if data.sheet else "Sheet"
+    if not exists:
+        wb.active.title = sheet_name
     if sheet_name in wb.sheetnames:
         ws = wb[sheet_name]
     else:
