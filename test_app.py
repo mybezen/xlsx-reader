@@ -1,4 +1,4 @@
-"""Test suite sederhana untuk memverifikasi logika aplikasi."""
+# Test suite sederhana untuk memverifikasi logika aplikasi
 
 from pathlib import Path
 from models import SheetData

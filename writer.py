@@ -1,7 +1,4 @@
-"""Penyimpanan dan konversi format file.
-
-Fungsi save_as memungkinkan konversi antara XLSX dan CSV.
-"""
+# Penyimpanan dan konversi format file
 
 from __future__ import annotations
 
@@ -14,11 +11,7 @@ from csv_io import write_csv
 
 
 def save(data: SheetData) -> None:
-    """Simpan perubahan ke file sumber asal.
-
-    Jika data berasal dari Google Sheets, panggil write_gsheet.
-    Jika tidak ada path sumber, melempar ValueError.
-    """
+    # Simpan perubahan ke file sumber asal
     if data.source == "gsheet":
         from gsheet import write_gsheet
         write_gsheet(data)
@@ -37,10 +30,7 @@ def save(data: SheetData) -> None:
 
 
 def save_as(data: SheetData, target_path: str) -> None:
-    """Simpan data ke path baru (bisa sekaligus konversi format XLSX ↔ CSV).
-
-    Path dan source pada object SheetData akan diperbarui.
-    """
+    # Simpan data ke path baru (bisa sekaligus konversi format XLSX ↔ CSV)
     ext = Path(target_path).suffix.lower()
     if ext not in SUPPORTED_EXT:
         raise ValueError(

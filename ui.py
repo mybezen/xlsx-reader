@@ -1,8 +1,4 @@
-"""Antarmuka terminal berbasis rich.
-
-Menyediakan fungsi tampilan (tabel berwarna, status, pesan) dan
-pembacaan input pengguna yang sudah divalidasi.
-"""
+# Antarmuka terminal berbasis rich
 
 from __future__ import annotations
 
@@ -20,10 +16,7 @@ console = Console()
 # ---------------------------------------------------------------------------
 
 def show_message(text: str, kind: str = "info") -> None:
-    """Tampilkan pesan berwarna.
-
-    kind : "success" (hijau), "error" (merah), "info" (biru), "warning" (kuning)
-    """
+    # Tampilkan pesan berwarna
     colors = {
         "success": "bold green",
         "error": "bold red",
@@ -34,10 +27,7 @@ def show_message(text: str, kind: str = "info") -> None:
 
 
 def show_status(data) -> None:
-    """Tampilkan baris status singkat di bawah judul menu.
-
-    Contoh: File : nilai.xlsx *  | Sheet : Sheet1 | 10 baris | 4 kolom
-    """
+    # Tampilkan baris status singkat di bawah judul menu
     if data is None or not data.is_loaded():
         console.print("[dim]File : (belum ada) | 0 baris | 0 kolom[/]")
         return
@@ -53,11 +43,7 @@ def show_status(data) -> None:
 
 
 def show_table(data, title: str = "", max_rows: int = MAX_DISPLAY_ROWS) -> None:
-    """Tampilkan data sebagai tabel berwarna dengan kolom nomor baris (#).
-
-    Jika baris lebih banyak dari max_rows, hanya bagian awal yang ditampilkan
-    beserta catatan jumlah baris yang tersembunyi.
-    """
+    # Tampilkan data sebagai tabel berwarna dengan kolom nomor baris (#)
     if data is None or not data.is_loaded():
         show_message("Belum ada data. Buka file terlebih dahulu.", "warning")
         return
@@ -91,10 +77,7 @@ def show_table(data, title: str = "", max_rows: int = MAX_DISPLAY_ROWS) -> None:
 # ---------------------------------------------------------------------------
 
 def ask_text(prompt: str, allow_empty: bool = True) -> str:
-    """Minta input teks dari pengguna.
-
-    allow_empty=False → pengguna harus mengetik sesuatu (tidak boleh kosong).
-    """
+    # Minta input teks dari pengguna
     while True:
         value = console.input(f"[bold]{prompt}[/] ").strip()
         if value or allow_empty:
@@ -103,7 +86,7 @@ def ask_text(prompt: str, allow_empty: bool = True) -> str:
 
 
 def ask_int(prompt: str, min_val: int | None = None, max_val: int | None = None) -> int:
-    """Minta input bilangan bulat, diulang sampai valid."""
+    # Minta input bilangan bulat, diulang sampai valid
     while True:
         raw = console.input(f"[bold]{prompt}[/] ").strip()
         try:
@@ -121,11 +104,7 @@ def ask_int(prompt: str, min_val: int | None = None, max_val: int | None = None)
 
 
 def ask_row_numbers(prompt: str, max_val: int) -> list[int]:
-    """Minta daftar nomor baris, dipisah koma, misalnya '2,4,7'.
-
-    Mengembalikan list indeks 0-based yang sudah tervalidasi.
-    Baris kosong / non-angka diabaikan.
-    """
+    # Minta daftar nomor baris, dipisah koma, misalnya '2,4,7'
     raw = console.input(f"[bold]{prompt}[/] ").strip()
     if not raw:
         return []
@@ -148,6 +127,6 @@ def ask_row_numbers(prompt: str, max_val: int) -> list[int]:
 
 
 def confirm(prompt: str) -> bool:
-    """Minta konfirmasi y/n, mengembalikan True jika pengguna menjawab y/Y."""
+    # Minta konfirmasi y/n, mengembalikan True jika pengguna menjawab y/Y
     jawaban = console.input(f"[bold]{prompt}[/] (y/n): ").strip().lower()
     return jawaban in ("y", "ya", "yes")

@@ -1,11 +1,4 @@
-"""Modul baca dan tulis file XLSX menggunakan openpyxl.
-
-Konsep kunci:
-- workbook → seluruh file XLSX
-- sheet → satu halaman kerja (misalnya Sheet1)
-- baris → antara 0 dan 99,999
-- sel → kosong atau berisi nilai teks/angka
-"""
+# Modul baca dan tulis file XLSX menggunakan openpyxl
 
 from __future__ import annotations
 
@@ -20,10 +13,7 @@ from models import SheetData
 
 
 def list_xlsx_sheets(file_path: str) -> list[str]:
-    """Ambil daftar nama sheet dalam file XLSX.
-
-    Akan melempar FileNotFoundError jika file tidak ada.
-    """
+    # Ambil daftar nama sheet dalam file XLSX
     workbook = load_workbook(file_path, read_only=True, data_only=True)
     sheet_names = workbook.sheetnames
     workbook.close()
@@ -31,12 +21,7 @@ def list_xlsx_sheets(file_path: str) -> list[str]:
 
 
 def load_xlsx(file_path: str, sheet_name: str | None = None) -> SheetData:
-    """Membaca file XLSX menjadi SheetData di memori.
-
-    Jika sheet_name diberikan, akses langsung ke sheet tersebut.
-    Jika None, gunakan sheet pertama.
-    Mengembalikan SheetData dengan informasi path dan source "xlsx".
-    """
+    # Membaca file XLSX menjadi SheetData di memori
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File XLSX tidak ditemukan: {file_path}")
 
@@ -72,11 +57,7 @@ def load_xlsx(file_path: str, sheet_name: str | None = None) -> SheetData:
 
 
 def write_xlsx(data: SheetData, file_path: str) -> None:
-    """Menyimpan SheetData menjadi file XLSX.
-
-    Jika file sudah ada, ditimpa (overwrite). Pastikan file tidak
-    dibuka di Excel sebelum menyimpan.
-    """
+    # Menyimpan SheetData menjadi file XLSX
     data.ensure_width()
 
     exists = os.path.exists(file_path)
@@ -107,7 +88,7 @@ def write_xlsx(data: SheetData, file_path: str) -> None:
 
 
 def validate_xlsx_path(path: str) -> str:
-    """Cek apakah path valid untuk file XLSX."""
+    # Cek apakah path valid untuk file XLSX
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(f"File tidak ditemukan: {path}")

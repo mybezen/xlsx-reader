@@ -1,8 +1,4 @@
-"""Router pembuka file berdasarkan ekstensi.
-
-Fungsi open_file menentukan apakah file adalah XLSX atau CSV
-dan meneruskan ke loader yang tepat.
-"""
+# Router pembuka file berdasarkan ekstensi
 
 from __future__ import annotations
 
@@ -16,10 +12,7 @@ import ui
 
 
 def open_file(file_path: str, sheet_name: str | None = None) -> SheetData:
-    """Buka file sesuai ekstensinya dan kembalikan SheetData.
-
-    Melempar ValueError jika ekstensi tidak didukung.
-    """
+    # Buka file sesuai ekstensinya dan kembalikan SheetData
     ext = Path(file_path).suffix.lower()
     if ext not in SUPPORTED_EXT:
         raise ValueError(
@@ -33,11 +26,7 @@ def open_file(file_path: str, sheet_name: str | None = None) -> SheetData:
 
 
 def choose_sheet(file_path: str) -> str | None:
-    """Minta pengguna memilih sheet dari file XLSX.
-
-    Menampilkan daftar sheet, lalu meminta pilihan nomor.
-    Mengembalikan nama sheet yang dipilih, atau None jika hanya satu sheet.
-    """
+    # Minta pengguna memilih sheet dari file XLSX
     from xlsx_io import list_xlsx_sheets
 
     sheets = list_xlsx_sheets(file_path)

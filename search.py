@@ -1,7 +1,4 @@
-"""Pencarian dan penyaringan data pada SheetData.
-
-Memungkinkan pencarian kata kunci di semua kolom atau kolom tertentu.
-"""
+# Pencarian dan penyaringan data pada SheetData
 
 from __future__ import annotations
 
@@ -11,14 +8,7 @@ from models import SheetData
 def search_rows(
     data: SheetData, keyword: str, column_name: str | None = None
 ) -> SheetData:
-    """Saring baris data yang mengandung keyword.
-
-    - If column_name diberikan: cari hanya di kolom tersebut.
-    - If column_name None: cari di semua kolom.
-    - Pencarian case-insensitive (tidak membedakan huruf besar/kecil).
-
-    Mengembalikan SheetData baru (pencarian tidak mengubah data asli di memori).
-    """
+    # Saring baris data yang mengandung keyword
     keyword_lower = keyword.lower()
     matched_rows: list[list[str]] = []
 
@@ -46,5 +36,5 @@ def search_rows(
 
 
 def get_column_names(data: SheetData) -> list[str]:
-    """Ambil daftar nama kolom untuk bantuan autocompletion/pilihan."""
+    # Ambil daftar nama kolom untuk bantuan autocompletion/pilihan
     return list(data.headers)
